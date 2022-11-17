@@ -1,30 +1,32 @@
 
 //Defines the pin for the Speed of the right motor
-#define enA 5  
+#define enA 3  
 
 //Defines the pin for the Right Motor Forward 
-#define in1 6  
+#define in1 5  
 
 //Defines the pin for the Right Motor Backward
-#define in2 7  
+#define in2 4  
 
 //Defines the pin for the Left Motor Forward 
-#define in3 9  
+#define in3 10  
 
 //Defines the pin for the Left Motor Backward
-#define in4 10 
+#define in4 9 
 
 //Defines the pin for the Speed of the left motor 
-#define enB 8  
+#define enB 11  
 
 //Defines the pin for the ir sensor Right
-#define RightSensor 4  
+#define RightSensor 7  
 
 //Defines the pin for the ir sensor Left
-#define LeftSensor 2  
+#define LeftSensor 8  
 
 // All code inside of this method will run once at the beginning
 void setup(){ 
+
+    Serial.begin (9600) ;
 
     // This line sets the corresponding pin to either output or input depending on what its supposed to be
     pinMode(RightSensor, INPUT); 
@@ -69,30 +71,40 @@ void loop(){
 
     // Each if statement in this method checks if a sensor detects a white line. If the the value of digitalRead(sensor) is 0 then it did not find the line
 
-    if(digitalRead(RightSensor) == 0){
+    bool sensingLeft = (digitalRead(LeftSensor) == 0);
+    bool sensingRight = (digitalRead(RightSensor) == 0);
+    Serial.print("Left Sensor reading: ");
+    Serial.print(sensingLeft);
+    Serial.print("   Right
+    ++Sensor reading: ");
+    Serial.print(sensingRight);
+    Serial.print("    ");
 
-        if(digitalRead(LeftSensor) == 0){
+    if(sensingRight){
 
-            // This line only runs if neither sensor detected anything thus it decides it must be on path and should continue to move forward
-            Forward();
+        if(sensingLeft){
+
+            // This line only runs if both sensors detect something thus it means it reached its final destination and should stop
+            Stop();
         }
         
         else{
 
-            // This line only runs if only the left sensor detected anything thus it decides it is on the right side of the line and must turn left
-            TurnLeft();
+            // This line only runs if only the right sensor detected anything thus it decides it is on the left side of the line and must turn right
+            TurnRight();
+            
         }
     }
 
     else{
 
-        if(digitalRead(LeftSensor) == 0){
-            // This line only runs if only the right sensor detected anything thus it decides it is on the left side of the line and must turn right
-            TurnRight();
+        if(sensingLeft){
+            // This line only runs if only the left sensor detected anything thus it decides it is on the right side of the line and must turn left
+            TurnLeft();
         }
         else{
-            // This line only runs if both sensors detect something thus it means it reached its final destination and should stop
-            Stop();
+            // This line only runs if neither sensor detected anything thus it decides it must be on path and should continue to move forward
+            Forward();
         }
     }
 }
@@ -107,10 +119,10 @@ void Forward(){
     digitalWrite(in2, LOW);  
 
     //Left Motor backward Pin 
-    digitalWrite(in3, LOW);  
+    digitalWrite(in3, HIGH);  
 
     //Left Motor forward Pin 
-    digitalWrite(in4, HIGH); 
+    digitalWrite(in4, LOW);
 
 }
 
@@ -124,10 +136,10 @@ void TurnRight(){
     digitalWrite(in2, HIGH); 
 
     //Left Motor backward Pin 
-    digitalWrite(in3, LOW);  
+    digitalWrite(in3, HIGH);  
 
     //Left Motor forward Pin 
-    digitalWrite(in4, HIGH); 
+    digitalWrite(in4, LOW); 
 
 }
 
@@ -142,10 +154,10 @@ void TurnLeft(){
     digitalWrite(in2, LOW);  
 
     //Left Motor backward Pin 
-    digitalWrite(in3, HIGH); 
+    digitalWrite(in3, LOW); 
 
     //Left Motor forward Pin 
-    digitalWrite(in4, LOW);  
+    digitalWrite(in4, HIGH);  
 
 }
 
@@ -165,5 +177,3 @@ void Stop(){
     digitalWrite(in4, LOW); 
 
 }
-
-
