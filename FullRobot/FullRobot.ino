@@ -75,8 +75,7 @@ void loop(){
     bool sensingRight = (digitalRead(RightSensor) == 0);
     Serial.print("Left Sensor reading: ");
     Serial.print(sensingLeft);
-    Serial.print("   Right
-    ++Sensor reading: ");
+    Serial.print("   Right    ++Sensor reading: ");
     Serial.print(sensingRight);
     Serial.print("    ");
 
@@ -85,7 +84,7 @@ void loop(){
         if(sensingLeft){
 
             // This line only runs if both sensors detect something thus it means it reached its final destination and should stop
-            Stop();
+            Forward();
         }
         
         else{
@@ -103,8 +102,8 @@ void loop(){
             TurnLeft();
         }
         else{
-            // This line only runs if neither sensor detected anything thus it decides it must be on path and should continue to move forward
-            Forward();
+            // This line only runs if neither sensor detected anything thus it decides it must be on path and should continue to move forward/
+            Stop();
         }
     }
 }
@@ -115,7 +114,7 @@ void Forward(){
     //Right Motor forward Pin 
     digitalWrite(in1, HIGH); 
 
-    //Right Motor backward Pin 
+    //Right Motor backward Pin eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     digitalWrite(in2, LOW);  
 
     //Left Motor backward Pin 
@@ -130,7 +129,7 @@ void Forward(){
 void TurnRight(){ 
     Serial.println("Turning Right");
     //Right Motor forward Pin 
-    digitalWrite(in1, LOW);  
+    digitalWrite(in1, HIGH );  
 
     //Right Motor backward Pin  
     digitalWrite(in2, HIGH); 
@@ -157,7 +156,7 @@ void TurnLeft(){
     digitalWrite(in3, LOW); 
 
     //Left Motor forward Pin 
-    digitalWrite(in4, HIGH);  
+    digitalWrite(in4, LOW);  
 
 }
 

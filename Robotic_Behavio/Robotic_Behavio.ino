@@ -26,7 +26,7 @@ int trigPin = 7; // attach pin D7 to pin Trig of HC-SR04
 int in1 = 5; // variable names for the L298N
 int in2 = 4; // variable names for the L298N
 int in3 = 10; // variable names for the L298N
-int in4 = 9; // variable names for the L298N
+int in4 = 9; // variable names for the +L298N
 int ena = 3;
 int enb = 11;
 
